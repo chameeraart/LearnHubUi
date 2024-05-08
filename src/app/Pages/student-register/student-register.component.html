@@ -1,0 +1,91 @@
+<div class="container">
+    <div class="card">
+      <div class="card-body">
+        <h2 class="card-title text-center mb-4">Student Registration</h2>
+        <form [formGroup]="Student" class="card shadow p-3 mb-5 bg-white rounded" (ngSubmit)="submitForm()">
+          <div class="form-group">
+            <label for="name">Name:</label>
+            <input type="text" class="form-control" id="Name" name="Name" formControlName="Name">
+          </div>
+          <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" class="form-control" id="Email" name="Email" formControlName="Email">
+          </div>
+          <div class="form-group">
+            <label for="phone">Phone:</label>
+            <input type="text" class="form-control" id="Phone" name="Phone" formControlName="Phone">
+          </div>
+          <div class="form-group">
+            <label for="sex">Sex:</label>
+            <select class="form-control" id="Sex" name="Sex" formControlName="Sex">
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <label for="idNumber">ID Number:</label>
+            <input type="text" class="form-control" id="IdNumber" name="IdNumber" formControlName="IdNumber">
+          </div>
+          <div class="form-group">
+            <label for="password">Password:</label>
+            <input type="password" class="form-control" id="Password" name="Password" formControlName="Password">
+          </div>
+          <div class="form-group">
+            <label for="birthday">Birthday:</label>
+            <input type="date" class="form-control" id="Birthday" name="Birthday" formControlName="Birthday">
+          </div>
+          <button type="submit" class="btn btn-primary btn-block">Register</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="card mt-4">
+      <div class="card-body">
+        <h2 class="card-title text-center mb-4">Student Registration Details</h2>
+        <!-- Search Box -->
+        <input type="text" class="form-control mb-3" placeholder="Search students" [(ngModel)]="searchTerm">
+        <table class="table">
+          <!-- Table headers -->
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Phone</th>
+              <th>Sex</th>
+              <th>ID Number</th>
+              <th>Birthday</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Iterate over filtered students and display their details -->
+            <tr *ngFor="let student of filterStudents() | slice: (currentPage - 1) * pageSize : currentPage * pageSize">
+              <td>{{ student.name }}</td>
+              <td>{{ student.email }}</td>
+              <td>{{ student.phone }}</td>
+              <td>{{ student.sex }}</td>
+              <td>{{ student.idNumber }}</td>
+              <td>{{ student.birthday | date:'yyyy/MM/dd' }}</td>
+              <td>
+                <!-- Edit and delete buttons -->
+                <button class="btn btn-primary btn-sm" (click)="onEdit(student.id)">Edit</button>
+                <button class="btn btn-danger btn-sm" (click)="onDelete(student.id)">Delete</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <!-- Pagination -->
+        <div class="pagination">
+          <button class="btn btn-sm btn-primary" [disabled]="currentPage === 1" (click)="onPageChange(currentPage - 1)">Previous</button>
+          <span>{{ currentPage }} / {{ getTotalPages() }}</span>
+          <button class="btn btn-sm btn-primary" [disabled]="currentPage === getTotalPages()" (click)="onPageChange(currentPage + 1)">Next</button>
+        </div>
+      </div>
+    </div>
+    <div class="d-flex align-items-center justify-content-center mb-3">
+      <button class="btn btn-secondary mr-3" (click)="navigateToMainPage()">Go to Main Page</button>
+      <button class="btn btn-danger" (click)="logout()">Logout</button>
+    </div>
+  </div>
+  

@@ -1,0 +1,101 @@
+<div class="container">
+  <div class="card">
+    <div class="card-header">
+      Course Details
+    </div>
+    <div class="card-body" *ngIf="usertype !== 'User'" >
+      <form [formGroup]="Course" (ngSubmit)="submitForm()">
+        <div class="form-group">
+          <label for="Title">Title:</label>
+          <input type="text" formControlName="Title" class="form-control" id="Title" name="Title" required>
+        </div>
+
+        <div class="form-group">
+          <label for="Description">Description:</label>
+          <textarea class="form-control" id="Description" name="Description" formControlName="Description" rows="3" required></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="StartDate">Start Date:</label>
+          <input type="date" class="form-control" id="StartDate" name="StartDate" formControlName="StartDate" required>
+        </div>
+
+        <div class="form-group">
+          <label for="EndDate">End Date:</label>
+          <input type="date" class="form-control" id="EndDate" name="EndDate" formControlName="EndDate" required>
+        </div>
+
+        <div class="form-group">
+          <label for="Instructor">Instructor:</label>
+          <input type="text" class="form-control" id="Instructor" name="Instructor" formControlName="Instructor" required>
+        </div>
+
+        <div class="form-group">
+          <label for="Fee">Fee:</label>
+          <input type="text" class="form-control" id="Fee" name="Fee" formControlName="Fee" required>
+        </div>
+
+        <div class="form-group">
+          <label for="Language">Language:</label>
+          <select class="form-control" id="Language" name="Language" formControlName="Language">
+            <option value="Sinhala">Sinhala</option>
+            <option value="English">English</option>
+            <option value="Tamil">Tamil</option>
+          </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+    </div>
+
+
+    <div class="mt-4">
+      <input type="text" class="form-control mb-3" placeholder="Search Courses" [(ngModel)]="searchTerm">
+      <table class="table">
+        <!-- Table headers -->
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Instructor</th>
+            <th>Fee</th>
+            <th>Language</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Iterate over filtered courses -->
+          <tr *ngFor="let item of filteredCourses">
+            <!-- Display course details -->
+            <td>{{ item.title }}</td>
+            <td>{{ item.description }}</td>
+            <td>{{ item.startDate }}</td>
+            <td>{{ item.endDate }}</td>
+            <td>{{ item.instructor }}</td>
+            <td>{{ item.fee }}</td>
+            <td>{{ item.language }}</td>
+            <!-- Actions -->
+            <td>
+              <!-- Edit and delete buttons -->
+              <button *ngIf="usertype !== 'User'" class="btn btn-primary btn-sm" (click)="onEdit(item.id)">Edit</button>
+              <button *ngIf="usertype !== 'User'" class="btn btn-danger btn-sm" (click)="onDelete(item.id)">Delete</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <!-- Pagination controls -->
+      <div class="pagination">
+        <button class="btn btn-sm btn-primary" [disabled]="currentPage === 1" (click)="onPageChange(currentPage - 1)">Previous</button>
+        <span>{{ currentPage }} / {{ getTotalPages() }}</span>
+        <button class="btn btn-sm btn-primary" [disabled]="currentPage === getTotalPages()" (click)="onPageChange(currentPage + 1)">Next</button>
+      </div>
+    </div>
+    
+    <div class="d-flex align-items-center justify-content-center mb-3">
+      <button class="btn btn-secondary mr-3" (click)="navigateToMainPage()">Go to Main Page</button>
+      <button class="btn btn-danger" (click)="logout()">Logout</button>
+    </div>
+
+</div>

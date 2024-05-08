@@ -1,0 +1,46 @@
+<div class="container">
+    <div class="card">
+      <div class="card-body">
+        <h2 class="card-title text-center mb-4">Student Registration</h2>
+        <form [formGroup]="Student" class="card shadow p-3 mb-5 bg-white rounded" (ngSubmit)="submitForm()">
+          <div class="form-group">
+            <label for="name">Name:</label>
+            <input type="text" class="form-control" id="Name" name="Name" formControlName="Name">
+          </div>
+          <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" class="form-control" id="Email" name="Email" formControlName="Email">
+          </div>
+          <div class="form-group">
+            <label for="phone">Phone:</label>
+            <input type="text" class="form-control" id="Phone" name="Phone" formControlName="Phone">
+          </div>
+          <div class="form-group">
+            <label for="sex">Sex:</label>
+            <select class="form-control" id="Sex" name="Sex" formControlName="Sex">
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <label for="idNumber">ID Number:</label>
+            <input type="text" class="form-control" id="IdNumber" name="IdNumber" formControlName="IdNumber">
+          </div>
+          <div class="form-group">
+            <label for="password">Password:</label>
+            <input type="password" class="form-control" id="Password" name="Password" formControlName="Password">
+          </div>
+          <div class="form-group">
+            <label for="birthday">Birthday:</label>
+            <input type="date" class="form-control" id="Birthday" name="Birthday" formControlName="Birthday">
+          </div>
+          <button type="submit" class="btn btn-primary btn-block">Register</button>
+        </form>
+      </div>
+    </div>
+    <div class="d-flex align-items-center justify-content-center mb-3">
+      <button class="btn btn-danger" (click)="logout()">Logout</button>
+    </div>
+  </div>
+  

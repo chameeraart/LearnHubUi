@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login Page</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    body {
+      background-color: #f8f9fa;
+    }
+    .login-container {
+      margin-top: 50px;
+    }
+    .login-form {
+      background-color: #fff;
+      border-radius: 10px;
+      padding: 30px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    }
+    .login-form h2 {
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    .form-group {
+      margin-bottom: 15px;
+    }
+    .form-control {
+      border-radius: 5px;
+    }
+    .btn-login {
+      border-radius: 5px;
+    }
+    .register-link {
+      text-align: center;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-8 col-lg-6">
+        <div class="login-container">
+          <div class="login-form">
+            <h2>Login</h2>
+            <form  [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+              <div class="form-group">
+                <input type="text" class="form-control" formControlName="Username" placeholder="Username">
+              </div>
+              <div class="form-group">
+                <input type="password" id="Password" class="form-control" formControlName="Password" placeholder="Password">
+              </div>
+              <div class="form-group">
+                <button type="submit" class="btn btn-primary btn-block btn-login">Login</button>
+              </div>
+            </form>
+            <div class="register-link">
+              <a href="/student">Create Account</a> <!-- Add your registration link here -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

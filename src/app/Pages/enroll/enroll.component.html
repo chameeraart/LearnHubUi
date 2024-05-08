@@ -1,0 +1,104 @@
+<div class="container">
+  <div class="card">
+    <div class="card-body">
+      <h2 class="card-title text-center mb-4">Enroll Student</h2>
+      <form [formGroup]="Enroll" (ngSubmit)="submitForm()">
+        <div class="form-group">
+          <label for="StudentId">Student ID:</label>
+          <select formControlName="StudentId" class="form-control" id="StudentId" required>
+            <option value="">Select Student ID</option>
+            <option *ngFor="let student of Students" [value]="student.id">{{ student.name }}</option>
+          </select>
+        </div>
+        
+        <div class="form-group">
+          <label for="CourseId">Course ID:</label>
+          <select formControlName="CourseId" class="form-control" id="CourseId" required>
+            <option value="">Select Course ID</option>
+            <option *ngFor="let course of Courses" [value]="course.id">{{ course.title }}</option>
+          </select>
+        </div>
+        
+      
+        <div class="form-group">
+          <label for="Created_datetime">Enroll Date:</label>
+          <input formControlName="Created_datetime" type="date" class="form-control" id="Created_datetime" required>
+        </div>
+        
+
+        <div class="form-group form-check">
+          <input formControlName="Status" type="checkbox" class="form-check-input" id="Status">
+          <label class="form-check-label" for="Status">Active</label>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-block">Submit</button>
+      </form>
+
+       <!-- Search input -->
+       <div class="input-group mb-3">
+        <input type="text" class="form-control" placeholder="Search Courses" [(ngModel)]="searchTerm" (input)="filterEnrolls()">
+      </div>
+
+      <!-- Table for displaying enrollments -->
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Student Name</th>
+              <th>Course Title</th>
+              <th>Enroll Date</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let enrollment of Enrolls">
+              <td>{{ getStudentName(enrollment.studentId) }}</td>
+              <td>{{ getCourseTitle(enrollment.courseId) }}</td>
+              <td>{{ enrollment.created_datetime | date }}</td>
+              <td>{{ enrollment.Status ? 'Active' : 'Inactive' }}</td>
+              <td>
+                <div class="btn-group" role="group">
+                  <!-- Edit button -->
+                  <button class="btn btn-primary btn-sm" (click)="onEdit(enrollment.id)">Edit</button>
+                  <!-- Delete button -->
+                  <button class="btn btn-danger btn-sm" (click)="onDelete(enrollment.id)">Delete</button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Pagination controls -->
+      <div class="d-flex justify-content-center">
+        <nav aria-label="Page navigation">
+          <ul class="pagination">
+            <li class="page-item" [class.disabled]="currentPage === 1">
+              <button class="page-link" (click)="onPageChange(currentPage - 1)" [disabled]="currentPage === 1">Previous</button>
+            </li>
+            <li class="page-item">
+              <span class="page-link">{{ currentPage }} / {{ getTotalPages() }}</span>
+            </li>
+            <li class="page-item" [class.disabled]="currentPage === getTotalPages()">
+              <button class="page-link" (click)="onPageChange(currentPage + 1)" [disabled]="currentPage === getTotalPages()">Next</button>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add a logout button/link -->
+  <div class="d-flex align-items-center justify-content-center mb-3">
+    <button class="btn btn-secondary mr-3" (click)="navigateToMainPage()">Go to Main Page</button>
+    <button class="btn btn-danger" (click)="logout()">Logout</button>
+  </div>
+
+</div>
+      
+      
+      
+
+
+  
